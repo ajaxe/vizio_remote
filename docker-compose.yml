@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  vizio-remote:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vizio-remote-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - REDIS_URL=${REDIS_URL:-redis://redis.internal.apogee-dev.com:6379}
+      - TOKEN_TTL_SECONDS=${TOKEN_TTL_SECONDS:-0}
+      - DEFAULT_TV_IP=${DEFAULT_TV_IP:-}
