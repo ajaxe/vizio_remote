@@ -1,6 +1,8 @@
-import { redis } from './redisClient.js';
-import { config } from './config.js';
-import { serverLogger } from './middleware/logger.js';
+import { redis } from "./redisClient.js";
+import { config } from "./config.js";
+import { serverLogger } from "./middleware/logger.js";
+
+export const APP_KEY_PREFIX = "vizio-remote";
 
 /**
  * Returns the auth token Redis key for a given TV IP.
@@ -8,36 +10,23 @@ import { serverLogger } from './middleware/logger.js';
  * @returns {string}
  */
 export function getAuthTokenKey(ip) {
-  return `vizio:token:${ip.trim()}`;
-}
-
-export async function getDeviceId(client = redis) {
-  const key = 'vizio-remote:deviceId';
-  try {
-    let deviceId = await client.get(key);
-    if (!deviceId) {
-      deviceId = crypto.randomUUID();
-      await client.set(key, deviceId);
-    }
-    return deviceId;
-  } catch (err) {
-    serverLogger.error('[TokenStore] Failed to get or set device ID:', { error: err.message });
-    return null;
-  }
+  return `${APP_KEY_PREFIX}:token:${ip.trim()}`;
 }
 
 /**
  * Retrieves the stored auth token for a given TV IP.
- * @param {string} ip
+ * 
  * @param {import('ioredis').Redis} [client=redis]
  * @returns {Promise<string | null>}
  */
-export async function getAuthToken(ip, client = redis) {
-  if (!ip) return null;
+export async function getAuthToken(client = redis) {
   try {
-    return await client.get(getAuthTokenKey(ip));
+    const remote = await getCurrentTvRemote()
+    return remote ? remote.token : null;
   } catch (err) {
-    serverLogger.error(`[TokenStore] Failed to get token for ${ip}:`, { error: err.message });
+    serverLogger.error(`[TokenStore] Failed to get token:`, {
+      error: err.message,
+    });
     return null;
   }
 }
@@ -46,21 +35,18 @@ export async function getAuthToken(ip, client = redis) {
  * Stores the auth token for a given TV IP in Redis.
  * @param {string} ip
  * @param {string} token
- * @param {number} [ttlSeconds=config.tokenTtlSeconds]
  * @param {import('ioredis').Redis} [client=redis]
  * @returns {Promise<void>}
  */
-export async function setAuthToken(ip, token, ttlSeconds = config.tokenTtlSeconds, client = redis) {
+export async function setAuthToken(ip, token, client = redis) {
   if (!ip || !token) return;
   const key = getAuthTokenKey(ip);
   try {
-    if (ttlSeconds > 0) {
-      await client.set(key, token, 'EX', ttlSeconds);
-    } else {
-      await client.set(key, token);
-    }
+    await client.set(key, token);
   } catch (err) {
-    serverLogger.error(`[TokenStore] Failed to save token for ${ip}:`, { error: err.message });
+    serverLogger.error(`[TokenStore] Failed to save token for ${ip}:`, {
+      error: err.message,
+    });
   }
 }
 
@@ -75,6 +61,38 @@ export async function deleteAuthToken(ip, client = redis) {
   try {
     await client.del(getAuthTokenKey(ip));
   } catch (err) {
-    serverLogger.error(`[TokenStore] Failed to delete token for ${ip}:`, { error: err.message });
+    serverLogger.error(`[TokenStore] Failed to delete token for ${ip}:`, {
+      error: err.message,
+    });
   }
+}
+
+/**
+ * Returns the current TV remote data (IP, MAC, and token) from Redis.
+ *
+ * @param {import('ioredis').Redis} client
+ * @returns {Promise<import('../types').TvRemoteData | null>}
+ */
+export async function getCurrentTvRemote(client = redis) {
+  const key = `${APP_KEY_PREFIX}:remotes`;
+  const v = await client.get(key);
+  const d = v ? JSON.parse(v) : null;
+  return d && d.length > 0 ? d[0] : null;
+}
+
+/**
+ * Sets the current TV remote data (IP, MAC, and token) in Redis.
+ *
+ * @param {import('../types').TvRemoteData} param0
+ * @param {import('ioredis').Redis} client
+ */
+export async function setCurrentTvRemote(
+  { ip, mac, token, deviceId, deviceName, status = "paired" },
+  client = redis,
+) {
+  const key = `${APP_KEY_PREFIX}:remotes`;
+  await client.set(
+    key,
+    JSON.stringify([{ ip, mac, token, deviceId, deviceName, status }]),
+  );
 }

@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { getAuthToken } from '../tokenStore.js';
+import { getCurrentTvRemote } from '../tokenStore.js';
 import { serverLogger } from '../middleware/logger.js';
 
 export const statusRoute = new Hono();
@@ -14,10 +14,11 @@ statusRoute.get('/', async (c) => {
   }
 
   try {
-    const token = await getAuthToken(ip);
+    const remote = await getCurrentTvRemote();
+    
     return c.json({
       ip,
-      paired: Boolean(token)
+      paired: remote.status === "paired",
     });
   } catch (err) {
     serverLogger.error(`Failed to get status for ${ip} in GET /api/status`, {
@@ -27,4 +28,3 @@ statusRoute.get('/', async (c) => {
     return c.json({ error: 'Failed to get TV status', details: err?.message }, 500);
   }
 });
-

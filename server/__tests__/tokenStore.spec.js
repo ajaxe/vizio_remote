@@ -15,25 +15,25 @@ describe('TokenStore (Redis)', () => {
 
   it('stores and retrieves an auth token', async () => {
     await setAuthToken('192.168.1.50', 'sample-auth-token-123', 0, mockRedis);
-    const token = await getAuthToken('192.168.1.50', mockRedis);
+    const token = await getAuthToken(mockRedis);
     expect(token).toBe('sample-auth-token-123');
   });
 
   it('returns null when no token is present', async () => {
-    const token = await getAuthToken('192.168.1.99', mockRedis);
+    const token = await getAuthToken(mockRedis);
     expect(token).toBeNull();
   });
 
   it('supports token expiration when ttlSeconds is provided', async () => {
     await setAuthToken('192.168.1.50', 'temp-token', 3600, mockRedis);
-    const token = await getAuthToken('192.168.1.50', mockRedis);
+    const token = await getAuthToken(mockRedis);
     expect(token).toBe('temp-token');
   });
 
   it('deletes a stored auth token', async () => {
     await setAuthToken('192.168.1.50', 'token-to-delete', 0, mockRedis);
     await deleteAuthToken('192.168.1.50', mockRedis);
-    const token = await getAuthToken('192.168.1.50', mockRedis);
+    const token = await getAuthToken(mockRedis);
     expect(token).toBeNull();
   });
 });

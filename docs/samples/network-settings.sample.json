@@ -1,0 +1,137 @@
+{
+  "timestamp": "2026-10-08T20:48:39.306Z",
+  "level": "info",
+  "message": "Fetching system information...",
+  "STATUS": { "RESULT": "SUCCESS", "DETAIL": "Success" },
+  "HASHLIST": [120269563, 2553804656, 3848615237, 4260011892],
+  "GROUP": "G_SYSTEM",
+  "NAME": "Network Information",
+  "PARAMETERS": { "FLAT": "TRUE", "HELPTEXT": "FALSE", "HASHONLY": "FALSE" },
+  "ITEMS": [
+    {
+      "HASHVAL": 1623519595,
+      "NAME": "Connection Type",
+      "VALUE": "Wired ",
+      "READONLY": "TRUE",
+      "CNAME": "connection_type",
+      "TYPE": "T_STRING_V1"
+    },
+    {
+      "HASHVAL": 3456194689,
+      "NAME": "SSID",
+      "ENABLED": "FALSE",
+      "VALUE": "",
+      "READONLY": "TRUE",
+      "CNAME": "ssid",
+      "TYPE": "T_STRING_V1"
+    },
+    {
+      "HASHVAL": 2108995507,
+      "NAME": "Security Type",
+      "ENABLED": "FALSE",
+      "VALUE": "",
+      "READONLY": "TRUE",
+      "CNAME": "security_type",
+      "TYPE": "T_STRING_V1"
+    },
+    {
+      "HASHVAL": 868868697,
+      "NAME": "IP Address",
+      "VALUE": "192.168.0.179",
+      "READONLY": "TRUE",
+      "CNAME": "ip_address",
+      "TYPE": "T_IP_ADDRESS_V1"
+    },
+    {
+      "HASHVAL": 2481394735,
+      "NAME": "Default Gateway",
+      "VALUE": "192.168.0.1",
+      "READONLY": "TRUE",
+      "CNAME": "gateway",
+      "TYPE": "T_IP_ADDRESS_V1"
+    },
+    {
+      "HASHVAL": 4274461141,
+      "NAME": "Subnet Mask",
+      "VALUE": "255.255.255.0",
+      "READONLY": "TRUE",
+      "CNAME": "subnet_mask",
+      "TYPE": "T_IP_ADDRESS_V1"
+    },
+    {
+      "HASHVAL": 4186230302,
+      "NAME": "Pref. DNS Server",
+      "VALUE": "45.90.28.154",
+      "READONLY": "TRUE",
+      "CNAME": "preferred_dns_server",
+      "TYPE": "T_IP_ADDRESS_V1"
+    },
+    {
+      "HASHVAL": 3568915398,
+      "NAME": "Alt. DNS Server",
+      "VALUE": "45.90.30.154",
+      "READONLY": "TRUE",
+      "CNAME": "alternate_dns_server",
+      "TYPE": "T_IP_ADDRESS_V1"
+    },
+    {
+      "HASHVAL": 3766345733,
+      "NAME": "Download Speed",
+      "VALUE": "N/A",
+      "READONLY": "TRUE",
+      "CNAME": "download_speed",
+      "TYPE": "T_STRING_V1"
+    },
+    {
+      "HASHVAL": 3029996779,
+      "NAME": "Wi-Fi Signal Strength",
+      "VALUE": "N/A",
+      "READONLY": "TRUE",
+      "CNAME": "wifi_signal_strength",
+      "TYPE": "T_STRING_V1"
+    },
+    {
+      "HASHVAL": 4162810424,
+      "NAME": "RSSI",
+      "VALUE": "N/A",
+      "READONLY": "TRUE",
+      "CNAME": "rssi",
+      "TYPE": "T_STRING_V1"
+    },
+    {
+      "HASHVAL": 1149920454,
+      "NAME": "Wi-Fi Channel",
+      "VALUE": "N/A",
+      "READONLY": "TRUE",
+      "CNAME": "wifi_channel",
+      "TYPE": "T_STRING_V1"
+    },
+    {
+      "HASHVAL": 1294896979,
+      "NAME": "RJ45 MAC",
+      "VALUE": "C4:1C:FF:B9:93:68",
+      "READONLY": "TRUE",
+      "CNAME": "rj45_mac_address",
+      "TYPE": "T_MAC_ADDRESS_V1"
+    },
+    {
+      "HASHVAL": 4252908257,
+      "NAME": "WLAN MAC",
+      "VALUE": "C4:1C:FF:4C:FF:E4",
+      "READONLY": "TRUE",
+      "CNAME": "wlan_mac_address",
+      "TYPE": "T_MAC_ADDRESS_V1"
+    },
+    {
+      "HASHVAL": 2316217197,
+      "NAME": "WiFi Module",
+      "VALUE": "No WiFiVendor file.",
+      "READONLY": "TRUE",
+      "CNAME": "wifi_module",
+      "TYPE": "T_STRING_V1"
+    }
+  ],
+  "URI": "/menu_native/dynamic/tv_settings/system/system_information/network_information",
+  "CNAME": "network_information",
+  "TYPE": "T_MENU_V1"
+}

@@ -1,19 +1,20 @@
+import * as smartcast from "vizio-smart-cast";
 /**
  * @file Type definitions for Vizio SmartCast Remote Control
  */
 
 export type RemoteCommand =
-  | 'up'
-  | 'down'
-  | 'left'
-  | 'right'
-  | 'ok'
-  | 'back'
-  | 'home'
-  | 'vol_up'
-  | 'vol_down'
-  | 'mute'
-  | 'power';
+  | "up"
+  | "down"
+  | "left"
+  | "right"
+  | "ok"
+  | "back"
+  | "home"
+  | "vol_up"
+  | "vol_down"
+  | "mute"
+  | "power";
 
 export interface VizioApp {
   id: string;
@@ -30,7 +31,7 @@ export interface StatusResponse {
 
 export interface PairingInitiateResponse {
   STATUS: {
-    RESULT: 'SUCCESS' | 'BLOCKED' | 'FAILED' | string;
+    RESULT: "SUCCESS" | "BLOCKED" | "FAILED" | string;
     DETAIL?: string;
   };
   ITEM?: {
@@ -40,7 +41,7 @@ export interface PairingInitiateResponse {
 
 export interface PairingConfirmResponse {
   STATUS: {
-    RESULT: 'SUCCESS' | 'FAILED' | string;
+    RESULT: "SUCCESS" | "FAILED" | string;
     DETAIL?: string;
   };
   ITEM?: {
@@ -57,7 +58,7 @@ export interface ServerConfig {
 
 export interface JsonLogEntry {
   timestamp: string;
-  level: 'info' | 'warn' | 'error';
+  level: "info" | "warn" | "error";
   method: string;
   path: string;
   status: number;
@@ -71,9 +72,27 @@ export interface JsonLogEntry {
   stack?: string;
 }
 
-declare module '*.vue' {
-  import type { DefineComponent } from 'vue';
+export type MacAddressType = "rj45_mac_address" | "wlan_mac_address";
+
+export interface TvRemoteData {
+  ip: string;
+  mac: Record<MacAddressType, string>;
+  token: string;
+  deviceId: string;
+  deviceName: string;
+  status: "paired" | "unpaired";
+}
+
+declare module "*.vue" {
+  import type { DefineComponent } from "vue";
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
 
+declare module 'vizio-smart-cast' {
+  interface Device {
+    app: {
+      launch: (appId: string, nameSpace: number, appName?: string) => Promise<void>;
+    };
+  }
+}
