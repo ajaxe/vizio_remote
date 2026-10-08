@@ -1,0 +1,17 @@
+{
+  "name": "Vizio SmartCast Remote",
+  "short_name": "Vizio Remote",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121214",
+  "theme_color": "#121214",
+  "orientation": "portrait-primary",
+  "description": "Responsive offline web remote control for Vizio SmartCast TVs",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
