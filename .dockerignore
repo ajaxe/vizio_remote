@@ -5,4 +5,4 @@ dist/
 .env.local
 .DS_Store
 *.md
-!docs/prd/initial-requirements-agentic.md
+docs/
