@@ -140,12 +140,21 @@ export async function executeCommand(
       return await client.control.volume.down();
     case "mute":
       return await client.control.volume.mute();
-    case "power":
+    case "power_on":
       // Power toggle: codeset 11, code 2
       // return await client.control.keyCommand(11, 2);
       return await toggleOnOffVizioTv({
         remoteData,
         client,
+        turnOn:true,
+      });
+    case "power_off":
+      // Power toggle: codeset 11, code 2
+      // return await client.control.keyCommand(11, 2);
+      return await toggleOnOffVizioTv({
+        remoteData,
+        client,
+        turnOn: false,
       });
     default:
       throw new Error(`Unknown command: ${action}`);
@@ -177,7 +186,7 @@ export async function launchApp(
   }
 
   if (client.app && typeof client.app.launch === "function") {
-    return await client.app.launch(appId, nameSpace);
+    return await client.app.launch(message, appId, nameSpace);
   }
 
   // Fallback to direct SmartCast REST PUT /app/launch
@@ -288,6 +297,7 @@ function sendSmartCastKey(ip, authToken, codeSet, code, port = 7345) {
  * @param {object} options
  * @param {import('../types').TvRemoteData} options.remoteData
  * @param {smartcast.Device} options.client
+ * @param {boolean} options.turnOn - true to power on, false to power off
  * @param {number} [options.maxRetries=5]
  * @param {number} [options.retryDelayMs=1500]
  * @returns {Promise<{ success: boolean, attempts: number }>}
@@ -295,11 +305,12 @@ function sendSmartCastKey(ip, authToken, codeSet, code, port = 7345) {
 export async function toggleOnOffVizioTv({
   remoteData,
   client,
+  turnOn,
   maxRetries = 5,
   retryDelayMs = 1500,
 }) {
   // Step 1: Send raw WoL magic packet if MAC is available
-  if (remoteData.mac) {
+  if (remoteData.mac && turnOn) {
     for (const t of Object.keys(remoteData.mac)) {
       try {
         await sendWolPacket(remoteData.mac[t]);
@@ -320,7 +331,7 @@ export async function toggleOnOffVizioTv({
   // CODE 1 = POWER ON, CODE 2 = POWER TOGGLE
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      const v = await client.control.power.toggle()
+      const v = turnOn ? await client.control.power.on() : await client.control.power.off();
       return { success: true, attempts: attempt };
     } catch (err) {
       if (attempt === maxRetries) {
@@ -330,6 +341,40 @@ export async function toggleOnOffVizioTv({
       }
       await new Promise((r) => setTimeout(r, retryDelayMs));
     }
+  }
+}
+
+export async function isTvOn() {
+  const remoteData = await defaultTokenStore.getCurrentTvRemote();
+  if (!remoteData || !remoteData.ip || !remoteData.token) {
+    return {
+      isOn: false,
+      message: "TV remote data is incomplete or missing.",
+    };
+  }
+
+  const { client } = await getClient(remoteData.ip, remoteData.token);
+
+  try {
+    const response = await client.power.currentMode();
+    serverLogger.info("Checking TV power status...", { response });
+    if (
+      response &&
+      response.ITEMS &&
+      response.ITEMS.length > 0 &&
+      response.ITEMS[0].VALUE !== undefined
+    ) {
+      // 1 = ON, 0 = OFF (Standby)
+      return { isOn: response.ITEMS[0].VALUE === 1 };
+    }
+
+    return { isOn: false };
+  } catch (err) {
+    // If connection timed out or refused, the TV is powered down / unreachable
+    return {
+      isOn: false,
+      message: `Error checking TV power status: ${err.message}`,
+    };
   }
 }
 

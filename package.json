@@ -20,7 +20,7 @@
     "ioredis": "^5.4.2",
     "vizio-smart-cast": "^1.4.0",
     "vue": "^3.5.13",
-    "vuetify": "^3.7.6"
+    "vuetify": "^4.2.4"
   },
   "devDependencies": {
     "@types/node": "^26.6.4",

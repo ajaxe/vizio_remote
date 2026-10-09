@@ -14,7 +14,8 @@ export type RemoteCommand =
   | "vol_up"
   | "vol_down"
   | "mute"
-  | "power";
+  | "power_on"
+  | "power_off";
 
 export interface VizioApp {
   id: string;
@@ -27,6 +28,8 @@ export interface VizioApp {
 export interface StatusResponse {
   ip: string;
   paired: boolean;
+  isOn: boolean;
+  message: string;
 }
 
 export interface PairingInitiateResponse {
@@ -92,7 +95,7 @@ declare module "*.vue" {
 declare module 'vizio-smart-cast' {
   interface Device {
     app: {
-      launch: (appId: string, nameSpace: number, appName?: string) => Promise<void>;
+      launch: (appName: string, appId: string, nameSpace: number) => Promise<void>;
     };
   }
 }

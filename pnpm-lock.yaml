@@ -30,8 +30,8 @@ importers:
         specifier: ^3.5.13
         version: 3.5.43(typescript@5.9.3)
       vuetify:
-        specifier: ^3.7.6
-        version: 3.13.6(typescript@5.9.3)(vite-plugin-vuetify@2.1.3)(vue@3.5.43(typescript@5.9.3))
+        specifier: ^4.2.4
+        version: 4.2.4(typescript@5.9.3)(vite-plugin-vuetify@2.1.3)(vue@3.5.43(typescript@5.9.3))
     devDependencies:
       '@types/node':
         specifier: ^26.6.4
@@ -59,7 +59,7 @@ importers:
         version: 5.4.21(@types/node@26.6.4)
       vite-plugin-vuetify:
         specifier: ^2.0.4
-        version: 2.1.3(supports-color@8.1.1)(vite@5.4.21(@types/node@26.6.4))(vue@3.5.43(typescript@5.9.3))(vuetify@3.13.6)
+        version: 2.1.3(supports-color@8.1.1)(vite@5.4.21(@types/node@26.6.4))(vue@3.5.43(typescript@5.9.3))(vuetify@4.2.4)
       vitest:
         specifier: ^2.1.8
         version: 2.1.9(@types/node@26.6.4)(jsdom@25.0.1(supports-color@8.1.1))(supports-color@8.1.1)
@@ -510,6 +510,39 @@ packages:
     peerDependencies:
       vue: ^3.0.0
       vuetify: '>=3'
+
+  '@vuetify/v0@1.2.3':
+    resolution: {integrity: sha512-8qpYa88KxKrvi4jQcz+Zg4WH04un48Lt7Tj0Qq+LqvbUvHi+H177vWqBn9tQWgpxBVs1RXrTz5zw0Cy6txJHlw==}
+    peerDependencies:
+      '@adobe/leonardo-contrast-colors': '>=1.0.0'
+      '@ant-design/colors': '>=7.0.0'
+      '@flagsmith/flagsmith': '>=11.0.0'
+      '@floating-ui/dom': '>=1.8.0'
+      '@js-temporal/polyfill': '>=0.5.0'
+      '@material/material-color-utilities': '>=0.3.0'
+      launchdarkly-js-client-sdk: ^3.0.0
+      posthog-js: ^1.0.0
+      vue: '>=3.5.0 || >=3.6.0-0'
+      vue-i18n: '>=10.0.0'
+    peerDependenciesMeta:
+      '@adobe/leonardo-contrast-colors':
+        optional: true
+      '@ant-design/colors':
+        optional: true
+      '@flagsmith/flagsmith':
+        optional: true
+      '@floating-ui/dom':
+        optional: true
+      '@js-temporal/polyfill':
+        optional: true
+      '@material/material-color-utilities':
+        optional: true
+      launchdarkly-js-client-sdk:
+        optional: true
+      posthog-js:
+        optional: true
+      vue-i18n:
+        optional: true
 
   abbrev@5.0.0:
     resolution: {integrity: sha512-/XrFJgzQQQHpti1raDJC6m4ws6aNktmjBlhk8Fdlk7LwCEuDoieEJJY9OFHjfiFJFFRM2tK+Ky/IsfbbmlMu1w==}
@@ -1285,12 +1318,12 @@ packages:
       typescript:
         optional: true
 
-  vuetify@3.13.6:
-    resolution: {integrity: sha512-Rt5dHb5zjiIOdZ/10/IVsTzLdKPLplVMv2hDXx2+LMHMFtt6Ks3NTA2eKqXBWVZZ5ZVIRdJBNBSP4/Iri8UdnA==}
+  vuetify@4.2.4:
+    resolution: {integrity: sha512-zLYtVGJcg2hK3DHoeiBXSImpzg4E0N19p3zCgGnNhMp/YwaVQZXP4cPkIKeL/evVnUeLP/CjSnFsFBThWSl2Ew==}
     peerDependencies:
       typescript: '>=4.7'
       vite-plugin-vuetify: '>=2.1.0'
-      vue: ^3.5.0
+      vue: ^3.5.0 || ^3.6.0-0
       webpack-plugin-vuetify: '>=3.1.0'
     peerDependenciesMeta:
       typescript:
@@ -1685,11 +1718,15 @@ snapshots:
     optionalDependencies:
       '@vue/server-renderer': 3.5.43
 
-  '@vuetify/loader-shared@2.1.2(vue@3.5.43(typescript@5.9.3))(vuetify@3.13.6)':
+  '@vuetify/loader-shared@2.1.2(vue@3.5.43(typescript@5.9.3))(vuetify@4.2.4)':
     dependencies:
       upath: 2.0.1
       vue: 3.5.43(typescript@5.9.3)
-      vuetify: 3.13.6(typescript@5.9.3)(vite-plugin-vuetify@2.1.3)(vue@3.5.43(typescript@5.9.3))
+      vuetify: 4.2.4(typescript@5.9.3)(vite-plugin-vuetify@2.1.3)(vue@3.5.43(typescript@5.9.3))
+
+  '@vuetify/v0@1.2.3(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      vue: 3.5.43(typescript@5.9.3)
 
   abbrev@5.0.0: {}
 
@@ -2423,14 +2460,14 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-vuetify@2.1.3(supports-color@8.1.1)(vite@5.4.21(@types/node@26.6.4))(vue@3.5.43(typescript@5.9.3))(vuetify@3.13.6):
+  vite-plugin-vuetify@2.1.3(supports-color@8.1.1)(vite@5.4.21(@types/node@26.6.4))(vue@3.5.43(typescript@5.9.3))(vuetify@4.2.4):
     dependencies:
-      '@vuetify/loader-shared': 2.1.2(vue@3.5.43(typescript@5.9.3))(vuetify@3.13.6)
+      '@vuetify/loader-shared': 2.1.2(vue@3.5.43(typescript@5.9.3))(vuetify@4.2.4)
       debug: 4.4.3(supports-color@8.1.1)
       upath: 2.0.1
       vite: 5.4.21(@types/node@26.6.4)
       vue: 3.5.43(typescript@5.9.3)
-      vuetify: 3.13.6(typescript@5.9.3)(vite-plugin-vuetify@2.1.3)(vue@3.5.43(typescript@5.9.3))
+      vuetify: 4.2.4(typescript@5.9.3)(vite-plugin-vuetify@2.1.3)(vue@3.5.43(typescript@5.9.3))
     transitivePeerDependencies:
       - supports-color
 
@@ -2500,12 +2537,23 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  vuetify@3.13.6(typescript@5.9.3)(vite-plugin-vuetify@2.1.3)(vue@3.5.43(typescript@5.9.3)):
+  vuetify@4.2.4(typescript@5.9.3)(vite-plugin-vuetify@2.1.3)(vue@3.5.43(typescript@5.9.3)):
     dependencies:
+      '@vuetify/v0': 1.2.3(vue@3.5.43(typescript@5.9.3))
       vue: 3.5.43(typescript@5.9.3)
     optionalDependencies:
       typescript: 5.9.3
-      vite-plugin-vuetify: 2.1.3(supports-color@8.1.1)(vite@5.4.21(@types/node@26.6.4))(vue@3.5.43(typescript@5.9.3))(vuetify@3.13.6)
+      vite-plugin-vuetify: 2.1.3(supports-color@8.1.1)(vite@5.4.21(@types/node@26.6.4))(vue@3.5.43(typescript@5.9.3))(vuetify@4.2.4)
+    transitivePeerDependencies:
+      - '@adobe/leonardo-contrast-colors'
+      - '@ant-design/colors'
+      - '@flagsmith/flagsmith'
+      - '@floating-ui/dom'
+      - '@js-temporal/polyfill'
+      - '@material/material-color-utilities'
+      - launchdarkly-js-client-sdk
+      - posthog-js
+      - vue-i18n
 
   w3c-xmlserializer@5.0.0:
     dependencies:

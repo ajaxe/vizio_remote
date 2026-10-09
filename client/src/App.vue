@@ -7,6 +7,7 @@
           <StatusBar
             :ip="activeIp"
             :paired="isPaired"
+            :connecting="powerToggleLoading"
             @open-settings="showSettingsDialog = true"
             @power-toggle="handlePowerToggle"
           />
@@ -76,7 +77,7 @@ import SystemControls from './components/SystemControls.vue';
 import AppCarousel from './components/AppCarousel.vue';
 import PairingDialog from './components/PairingDialog.vue';
 import SettingsDialog from './components/SettingsDialog.vue';
-import { getSavedTvIp, saveTvIp, clearSavedTvIp } from './services/storage.js';
+import { saveTvIp, clearSavedTvIp } from './services/storage.js';
 import {
   checkTvStatus,
   sendRemoteCommand,
@@ -89,6 +90,8 @@ const isPaired = ref(false);
 const showPairingDialog = ref(false);
 const showSettingsDialog = ref(false);
 const apps = ref([]);
+const isTvOn = ref(false);
+const powerToggleLoading = ref(false);
 
 const snackbar = ref({
   show: false,
@@ -101,14 +104,7 @@ function showToast(text, color = 'success') {
 }
 
 onMounted(async () => {
-  // Load saved IP from localStorage
-  const savedIp = getSavedTvIp();
-  if (savedIp) {
-    activeIp.value = savedIp;
-    await verifyPairingStatus(savedIp);
-  } else {
-    showPairingDialog.value = true;
-  }
+  await verifyPairingStatus();
 
   // Load streaming apps catalog
   try {
@@ -118,16 +114,19 @@ onMounted(async () => {
   }
 });
 
-async function verifyPairingStatus(ip) {
+async function verifyPairingStatus() {
   try {
-    const status = await checkTvStatus(ip);
+    const status = await checkTvStatus();
     isPaired.value = Boolean(status && status.paired);
+    activeIp.value = status.ip;
+    isTvOn.value = status.isOn;
     if (!isPaired.value) {
       showPairingDialog.value = true;
     }
   } catch (err) {
     console.warn('TV status check failed:', err);
     isPaired.value = false;
+    isTvOn.value = false;
     showPairingDialog.value = true;
   }
 }
@@ -152,7 +151,13 @@ async function handleCommand(action) {
 }
 
 async function handlePowerToggle() {
-  await handleCommand('power');
+  powerToggleLoading.value = true;
+  try {
+    await handleCommand(isTvOn.value ? 'power_off' : 'power_on');
+    isTvOn.value = !isTvOn.value;
+  } finally {
+    powerToggleLoading.value = false;
+  }
 }
 
 async function handleLaunchApp(app) {

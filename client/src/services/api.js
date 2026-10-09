@@ -4,12 +4,10 @@
 
 /**
  * Checks if the TV at the specified IP address is paired in Redis.
- * @param {string} ip
  * @returns {Promise<import('../../../types').StatusResponse>}
  */
-export async function checkTvStatus(ip) {
-  if (!ip) throw new Error('TV IP is required');
-  const res = await fetch(`/api/status?ip=${encodeURIComponent(ip.trim())}`);
+export async function checkTvStatus() {
+  const res = await fetch('/api/status');
   if (!res.ok) {
     const error = await res.json().catch(() => ({}));
     throw new Error(error.error || `Status check failed (${res.status})`);
