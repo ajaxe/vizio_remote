@@ -4,7 +4,6 @@
     <v-btn
       rounded="pill"
       variant="tonal"
-      color="surface-bright"
       size="large"
       class="px-6 tactile-btn"
       aria-label="Back"
@@ -18,7 +17,6 @@
     <v-btn
       rounded="pill"
       variant="tonal"
-      color="surface-bright"
       size="large"
       class="px-6 tactile-btn"
       aria-label="Home"

@@ -10,8 +10,7 @@
       <!-- Volume Down (-) Button -->
       <v-btn
         icon="mdi-minus"
-        variant="tonal"
-        color="surface-bright"
+        variant="text"
         size="large"
         class="tactile-btn"
         aria-label="Volume Down"
@@ -32,8 +31,7 @@
       <!-- Volume Up (+) Button -->
       <v-btn
         icon="mdi-plus"
-        variant="tonal"
-        color="surface-bright"
+        variant="text"
         size="large"
         class="tactile-btn"
         aria-label="Volume Up"
