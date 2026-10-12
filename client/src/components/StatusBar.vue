@@ -9,7 +9,7 @@
         size="26"
       />
       <div>
-        <div class="text-subtitle-2 font-weight-black tracking-wide text-uppercase" style="letter-spacing: 1.5px;">
+        <div class="text-subtitle-2 font-weight-black text-uppercase" style="letter-spacing: 1.5px;">
           VIZIO
         </div>
         <div class="text-caption text-medium-emphasis text-truncate" style="max-width: 130px;">

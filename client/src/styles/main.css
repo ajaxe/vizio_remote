@@ -6,8 +6,8 @@ body,
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  background-color: #0d0e11;
-  color: #f3f4f6;
+  background-color: rgb(var(--v-theme-background));
+  color: rgb(var(--v-theme-on-background));
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -32,18 +32,17 @@ body,
     min-height: auto;
     margin: 24px auto;
     border-radius: 36px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(var(--v-border-color), var(--v-border-opacity));
   }
 }
 
 /* Tactile Remote Buttons */
 .tactile-btn {
-  transition: transform 0.08s ease, filter 0.08s ease;
+  transition: transform 0.08s ease-out;
 }
 
 .tactile-btn:active {
-  transform: scale(0.92);
-  filter: brightness(1.2);
+  transform: scale(0.94);
 }
 
 /* D-Pad Circular Layout */
@@ -53,16 +52,22 @@ body,
   height: 230px;
   margin: 0 auto;
   border-radius: 50%;
-  background: radial-gradient(circle, #252834 0%, #1a1c23 100%);
-  box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.08), 0 10px 25px rgba(0, 0, 0, 0.5);
+  background: radial-gradient(
+    circle,
+    rgb(var(--v-theme-surface-bright)) 0%,
+    rgb(var(--v-theme-surface)) 100%
+  );
+  box-shadow:
+    inset 0 2px 6px rgba(var(--v-border-color), var(--v-border-opacity)),
+    0 10px 25px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .dpad-btn {
-  position: absolute !important;
-  color: #e5e7eb !important;
+  position: absolute;
+  color: rgb(var(--v-theme-on-surface));
 }
 
 .dpad-btn-up {
@@ -90,12 +95,12 @@ body,
 }
 
 .dpad-btn-center {
-  width: 78px !important;
-  height: 78px !important;
-  border-radius: 50% !important;
-  font-weight: 700 !important;
-  letter-spacing: 1px !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 /* App Carousel Card Styling */

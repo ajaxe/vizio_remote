@@ -25,13 +25,12 @@
           class="mb-3"
         />
 
-        <div class="d-flex flex-column gap-2">
+        <div class="d-flex flex-column ga-2">
           <v-btn
             color="primary"
             variant="tonal"
             block
             prepend-icon="mdi-sync"
-            class="mb-2"
             @click="handleSaveIp"
           >
             Switch to this TV IP
@@ -42,7 +41,6 @@
             variant="tonal"
             block
             prepend-icon="mdi-remote"
-            class="mb-2"
             @click="$emit('re-pair')"
           >
             Start Re-Pairing Flow

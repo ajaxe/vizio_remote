@@ -45,6 +45,9 @@
       <v-btn
         color="primary"
         variant="flat"
+        width="78"
+        height="78"
+        rounded="circle"
         class="dpad-btn-center tactile-btn"
         aria-label="Select OK"
         @click="$emit('command', 'ok')"

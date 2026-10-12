@@ -4,8 +4,9 @@
       rounded="pill"
       color="surface"
       elevation="6"
-      class="d-flex align-center justify-space-between px-2 py-1"
-      style="width: 260px; border: 1px solid rgba(255, 255, 255, 0.08);"
+      border="thin"
+      width="260"
+      class="d-flex align-center justify-space-between px-2 py-1 border-opacity-25"
     >
       <!-- Volume Down (-) Button -->
       <v-btn
