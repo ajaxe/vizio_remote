@@ -1,6 +1,6 @@
 <template>
-  <div class="px-3 pt-3 pb-4">
-    <div class="d-flex align-center justify-space-between px-3 mb-2">
+  <div class="px-1 pt-1 pb-1" style="min-height:145px;">
+    <div class="d-flex align-center justify-space-between px-3 mb-1">
       <span class="text-caption font-weight-bold text-medium-emphasis text-uppercase" style="letter-spacing: 1.2px;">
         Apps & Streaming
       </span>
