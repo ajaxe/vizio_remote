@@ -5,10 +5,9 @@ RUN npm install -g corepack@latest
 RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml* ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY patches ./patches
 
-# 1. Force pnpm v11 to allow native builds via workspace file injection
-RUN echo "dangerouslyAllowAllBuilds: true" > pnpm-workspace.yaml
 RUN pnpm install --frozen-lockfile
 
 COPY . .
@@ -23,10 +22,9 @@ ENV NODE_ENV=production
 RUN npm install -g corepack@latest
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-COPY package.json pnpm-lock.yaml* ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY patches ./patches
 
-# 2. Inject the same build allowance for the production engine setup
-RUN echo "dangerouslyAllowAllBuilds: true" > pnpm-workspace.yaml
 RUN pnpm install --prod --frozen-lockfile
 
 COPY --from=builder /app/dist ./dist
