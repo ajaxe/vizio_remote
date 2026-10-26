@@ -16,7 +16,7 @@
     </div>
 
     <!-- Bottom Streaming Apps Tray -->
-    <div>
+    <div style="height: 160px;">
       <v-divider class="my-1 border-opacity-25" />
       <slot name="apps" />
     </div>

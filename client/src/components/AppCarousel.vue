@@ -46,7 +46,7 @@
 <script setup>
 /**
  * @typedef {Object} Props
- * @property {import('../../types').VizioApp[]} apps
+ * @property {import('../../../types').VizioApp[]} apps
  */
 
 defineProps({

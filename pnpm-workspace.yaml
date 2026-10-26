@@ -24,3 +24,6 @@ overrides:
   esbuild: ^0.28.2
   qs: ^6.16.0
   uuid: ^11.1.1
+
+patchedDependencies:
+  request@2.88.2: patches/request@2.88.2.patch
